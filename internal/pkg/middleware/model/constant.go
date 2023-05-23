@@ -4,6 +4,6 @@ const (
 	SessionKey   string = "t-session-id"
 	AccessKey    string = "t-access-token"
 	RefreshKey   string = "t-refresh-token"
-	SignatureKey string = "t-512-signature"
-	PublicKey    string = "t-public-key"
+	SignatureKey string = "T-512-Signature"
+	PublicKey    string = "T-Public-Key"
 )
