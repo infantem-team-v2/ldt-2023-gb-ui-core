@@ -2,7 +2,7 @@ package authInterface
 
 import (
 	"context"
-	"gb-auth-gate/internal/auth/model"
+	"gb-ui-core/internal/auth/model"
 )
 
 type RelationalRepository interface {

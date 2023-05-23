@@ -1,4 +1,4 @@
-module gb-auth-gate
+module gb-ui-core
 
 go 1.20
 

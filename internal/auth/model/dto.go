@@ -1,7 +1,7 @@
 package model
 
 import (
-	"gb-auth-gate/internal/pkg/common"
+	"gb-ui-core/internal/pkg/common"
 )
 
 type SignUpRequest struct {

@@ -2,8 +2,8 @@ package cache
 
 import (
 	"fmt"
-	mainConfig "gb-auth-gate/config"
-	"gb-auth-gate/pkg/tutils/etc"
+	mainConfig "gb-ui-core/config"
+	"gb-ui-core/pkg/tutils/etc"
 	"github.com/fiorix/go-redis/redis"
 	"github.com/sarulabs/di"
 )

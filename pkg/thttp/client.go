@@ -3,9 +3,9 @@ package thttp
 import (
 	"encoding/json"
 	"fmt"
-	"gb-auth-gate/config"
-	"gb-auth-gate/pkg/tlogger"
-	"gb-auth-gate/pkg/tutils/etc"
+	"gb-ui-core/config"
+	"gb-ui-core/pkg/tlogger"
+	"gb-ui-core/pkg/tutils/etc"
 	"github.com/sarulabs/di"
 	http "github.com/valyala/fasthttp"
 	"time"

@@ -2,8 +2,8 @@ package relational
 
 import (
 	"fmt"
-	"gb-auth-gate/config"
-	sConfig "gb-auth-gate/pkg/tstorage/config"
+	"gb-ui-core/config"
+	sConfig "gb-ui-core/pkg/tstorage/config"
 	_ "github.com/jackc/pgx/stdlib" // pgx driver
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"

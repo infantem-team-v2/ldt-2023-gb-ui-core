@@ -29,5 +29,11 @@ type TStorageConfig struct {
 		} `json:"Prometheus"`
 	} `json:"Metrics"`
 	NonRelational struct {
+		Mongo struct {
+			Host     string `json:"host"`
+			Port     string `json:"port"`
+			User     string `json:"user"`
+			Password string `json:"password"`
+		}
 	}
 }

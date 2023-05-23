@@ -2,11 +2,11 @@ package http
 
 import (
 	"fmt"
-	"gb-auth-gate/config"
-	authInterface "gb-auth-gate/internal/auth/interface"
-	"gb-auth-gate/internal/pkg/middleware/model"
-	"gb-auth-gate/pkg/tlogger"
-	"gb-auth-gate/pkg/tutils/etc"
+	"gb-ui-core/config"
+	authInterface "gb-ui-core/internal/auth/interface"
+	"gb-ui-core/internal/pkg/middleware/model"
+	"gb-ui-core/pkg/tlogger"
+	"gb-ui-core/pkg/tutils/etc"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/storage/redis/v2"
 	"github.com/sarulabs/di"

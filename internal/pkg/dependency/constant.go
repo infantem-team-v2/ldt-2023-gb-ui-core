@@ -1,19 +1,19 @@
 package dependency
 
 import (
-	"gb-auth-gate/config"
-	authRepo "gb-auth-gate/internal/auth/repository"
-	authUC "gb-auth-gate/internal/auth/usecase"
-	mdwHttp "gb-auth-gate/internal/pkg/middleware/delivery/http"
-	"gb-auth-gate/pkg/damqp/kafka"
-	"gb-auth-gate/pkg/damqp/rabbit"
-	"gb-auth-gate/pkg/terrors"
-	"gb-auth-gate/pkg/thttp"
-	"gb-auth-gate/pkg/thttp/server"
-	"gb-auth-gate/pkg/tlogger"
-	"gb-auth-gate/pkg/tsecure"
-	tstorageCache "gb-auth-gate/pkg/tstorage/cache"
-	tstorageRelational "gb-auth-gate/pkg/tstorage/relational"
+	"gb-ui-core/config"
+	authRepo "gb-ui-core/internal/auth/repository"
+	authUC "gb-ui-core/internal/auth/usecase"
+	mdwHttp "gb-ui-core/internal/pkg/middleware/delivery/http"
+	"gb-ui-core/pkg/damqp/kafka"
+	"gb-ui-core/pkg/damqp/rabbit"
+	"gb-ui-core/pkg/terrors"
+	"gb-ui-core/pkg/thttp"
+	"gb-ui-core/pkg/thttp/server"
+	"gb-ui-core/pkg/tlogger"
+	"gb-ui-core/pkg/tsecure"
+	tstorageCache "gb-ui-core/pkg/tstorage/cache"
+	tstorageRelational "gb-ui-core/pkg/tstorage/relational"
 	"github.com/sarulabs/di"
 )
 

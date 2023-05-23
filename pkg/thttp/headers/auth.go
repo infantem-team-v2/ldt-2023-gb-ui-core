@@ -2,8 +2,8 @@ package thttpHeaders
 
 import (
 	"encoding/json"
-	"gb-auth-gate/pkg/thttp"
-	"gb-auth-gate/pkg/tsecure"
+	"gb-ui-core/pkg/thttp"
+	"gb-ui-core/pkg/tsecure"
 	"strconv"
 	"strings"
 	"time"

@@ -1,10 +1,10 @@
 package http
 
 import (
-	"gb-auth-gate/internal/auth/model"
-	mdwModel "gb-auth-gate/internal/pkg/middleware/model"
-	"gb-auth-gate/pkg/terrors"
-	"gb-auth-gate/pkg/thttp/server"
+	"gb-ui-core/internal/auth/model"
+	mdwModel "gb-ui-core/internal/pkg/middleware/model"
+	"gb-ui-core/pkg/terrors"
+	"gb-ui-core/pkg/thttp/server"
 	"github.com/gofiber/fiber/v2"
 	"time"
 )

@@ -3,8 +3,8 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"gb-auth-gate/internal/auth/model"
-	"gb-auth-gate/pkg/terrors"
+	"gb-ui-core/internal/auth/model"
+	"gb-ui-core/pkg/terrors"
 	"github.com/jmoiron/sqlx"
 	"github.com/sarulabs/di"
 )
@@ -23,6 +23,7 @@ func (p PostgresRepository) FindServiceByPublicKey(publicKey string) (data *mode
 	query := `
 			 SELECT * FROM service.auth WHERE public_key = $1;
 			 `
+	data = &model.AuthServiceDAO{}
 	err = p.db.Get(data, query, publicKey)
 	if err != nil {
 		return nil, terrors.Raise(err, 100002)
@@ -35,6 +36,7 @@ func (p PostgresRepository) FindServiceByName(name string) (data *model.AuthServ
 	query := `
 			 SELECT * FROM service.auth WHERE name = $1;
 			 `
+	data = &model.AuthServiceDAO{}
 	err = p.db.Get(data, query, name)
 	if err != nil {
 		return nil, terrors.Raise(err, 200002)

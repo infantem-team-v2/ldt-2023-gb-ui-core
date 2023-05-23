@@ -1,9 +1,9 @@
 package terrors
 
 import (
-	"gb-auth-gate/internal/pkg/common"
-	"gb-auth-gate/pkg/thttp"
-	"gb-auth-gate/pkg/tlogger"
+	"gb-ui-core/internal/pkg/common"
+	"gb-ui-core/pkg/thttp"
+	"gb-ui-core/pkg/tlogger"
 	"github.com/gofiber/fiber/v2"
 	"github.com/sarulabs/di"
 	"strings"

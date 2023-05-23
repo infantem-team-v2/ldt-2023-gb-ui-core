@@ -5,7 +5,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"fmt"
-	"gb-auth-gate/config"
+	"gb-ui-core/config"
 	"github.com/sarulabs/di"
 	"os"
 )

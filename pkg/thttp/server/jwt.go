@@ -1,7 +1,7 @@
 package server
 
 import (
-	"gb-auth-gate/pkg/terrors"
+	"gb-ui-core/pkg/terrors"
 	"github.com/golang-jwt/jwt/v5"
 	"time"
 )
