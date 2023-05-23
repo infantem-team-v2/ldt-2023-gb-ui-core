@@ -1,7 +1,7 @@
 GetActiveElements:
-  method: GET
-  httpRoute: /element/active
+  httpMethod: GET
+  route: /element/active
 
 GetTypes:
-  method: GET
-  httpRoute: /types
+  httpMethod: GET
+  route: /types
