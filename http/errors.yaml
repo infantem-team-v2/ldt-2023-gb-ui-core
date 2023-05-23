@@ -96,3 +96,6 @@
 300009:
   message: can't parse active elements for ui
   statusCode: 409
+300010:
+  message: can't close connection to document storage
+  statusCode: 409

@@ -32,10 +32,17 @@ func (m *MongoRepository) GetActiveCalculatorElements() ([]*model.UiInputElement
 	if err != nil {
 		return nil, terrors.Raise(err, 300008)
 	}
-	err = cursor.Decode(&data)
-	if err != nil {
-		return nil, terrors.Raise(err, 300009)
-	}
 
+	for cursor.Next(context.Background()) {
+		var element model.UiInputElementUnitDAO
+		err = cursor.Decode(&element)
+		if err != nil {
+			return nil, terrors.Raise(err, 300009)
+		}
+		data = append(data, &element)
+	}
+	if err := cursor.Close(context.Background()); err != nil {
+		return nil, terrors.Raise(err, 300010)
+	}
 	return data, nil
 }
