@@ -1,5 +1,3 @@
-include .env
-
 .DEFAULT_GOAL := update
 
 docs_init:

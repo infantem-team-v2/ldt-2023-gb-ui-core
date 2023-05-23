@@ -5,6 +5,7 @@ import (
 	"gb-ui-core/config"
 	_ "gb-ui-core/docs"
 	"gb-ui-core/internal/pkg/dependency"
+	mdwHttp "gb-ui-core/internal/pkg/middleware/delivery/http"
 	"gb-ui-core/pkg/terrors"
 	"gb-ui-core/pkg/thttp"
 	"gb-ui-core/pkg/thttp/server"
@@ -54,6 +55,8 @@ func (s *Server) MapHandlers() *Server {
 	// Getting dependencies from container
 	sh := s.container.ContainerInstance().
 		Get("stacktraceHandler").(*terrors.StacktraceHandler)
+	mdw := s.container.ContainerInstance().
+		Get("middleware").(*mdwHttp.MiddlewareManager)
 
 	// Make recover on top of app's stack
 	s.App.Use(mwRecover.New(mwRecover.Config{
@@ -81,9 +84,10 @@ func (s *Server) MapHandlers() *Server {
 
 	// Cross-Origin politics
 	s.App.Use(cors.New(cors.Config{
-		AllowOrigins: "https://ldt2023.infantem.tech",
+		AllowOrigins: "*",
 		AllowHeaders: "*",
 	}))
+	s.App.Use(mdw.SignatureMiddleware())
 
 	//ah.SetRoutes()
 	s.mapHandlers()

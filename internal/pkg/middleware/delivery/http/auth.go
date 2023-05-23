@@ -6,12 +6,16 @@ import (
 	"gb-ui-core/pkg/terrors"
 	"gb-ui-core/pkg/thttp/server"
 	"github.com/gofiber/fiber/v2"
+	"strings"
 	"time"
 )
 
 // SignatureMiddleware Validates request by HMAC512
 func (mdw *MiddlewareManager) SignatureMiddleware() fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		if strings.Contains(c.Path(), "/docs") {
+			return c.Next()
+		}
 		headers := c.GetReqHeaders()
 		body := c.Body()
 		ok, err := mdw.AuthUC.ValidateService(&model.AuthHeadersLogic{

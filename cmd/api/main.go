@@ -5,20 +5,15 @@ import (
 	"gb-ui-core/internal/pkg/server"
 )
 
-// @title Core backend app for Leaders of Digital Transformation
-// @description Main service that works with each other and summarizing data
+// @title Backend-Driven-UI
+// @description Service to provide UI specification frontend from backend
 // @version 1.0.0
 // @contact.name Docs developer
 // @contact.url https://t.me/KlenoviySirop
 // @contact.email KlenoviySir@yandex.ru
 
-// @host gate.gb.ldt2023.infantem.tech
+// @host ui.gb.ldt2023.infantem.tech
 // @schemes https
-
-// @securityDefinitions AuthJWT
-// @in header
-// @name Authorization
-// @description JWT token in authorization bearer
 
 func main() {
 	if err := server.

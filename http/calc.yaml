@@ -1,0 +1,7 @@
+GetActiveElements:
+  method: GET
+  httpRoute: /element/active
+
+GetTypes:
+  method: GET
+  httpRoute: /types

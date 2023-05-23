@@ -87,3 +87,12 @@
 300006:
   message: can't create and write user
   statusCode: 422
+300007:
+  message: can't get ui types
+  statusCode: 422
+300008:
+  message: can't get active elements for ui
+  statusCode: 409
+300009:
+  message: can't parse active elements for ui
+  statusCode: 409
