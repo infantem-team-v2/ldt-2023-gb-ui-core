@@ -26,6 +26,8 @@ definitions:
         type: string
       field:
         type: string
+      field_id:
+        type: string
       options:
         items: {}
         type: array
