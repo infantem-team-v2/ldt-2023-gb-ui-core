@@ -131,6 +131,9 @@ const docTemplate = `{
                 "category": {
                     "type": "string"
                 },
+                "category_id": {
+                    "type": "string"
+                },
                 "elements": {
                     "type": "array",
                     "items": {

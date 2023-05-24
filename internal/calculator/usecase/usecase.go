@@ -3,6 +3,7 @@ package usecase
 import (
 	"gb-ui-core/internal/calculator/model"
 	uiInterface "gb-ui-core/internal/ui/interface"
+	"github.com/google/uuid"
 	"github.com/sarulabs/di"
 )
 
@@ -37,8 +38,9 @@ func (cus *CalculatorUseCase) GetActiveElements() (*model.GetActiveElementsRespo
 			})
 		}
 		elementsDTO = append(elementsDTO, &model.UiCategoryLogic{
-			Category: e.Category,
-			Elements: innerElements,
+			Category:   e.Category,
+			CategoryId: uuid.New().String(),
+			Elements:   innerElements,
 		})
 	}
 	return &model.GetActiveElementsResponse{

@@ -15,6 +15,7 @@ type UiTypeLogic struct {
 }
 
 type UiCategoryLogic struct {
-	Category string            `json:"category"`
-	Elements []*UiElementLogic `json:"elements"`
+	Category   string            `json:"category"`
+	CategoryId string            `json:"category_id"`
+	Elements   []*UiElementLogic `json:"elements"`
 }

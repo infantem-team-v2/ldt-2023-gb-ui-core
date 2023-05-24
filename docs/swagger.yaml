@@ -24,6 +24,8 @@ definitions:
     properties:
       category:
         type: string
+      category_id:
+        type: string
       elements:
         items:
           $ref: '#/definitions/model.UiElementLogic'

@@ -49,27 +49,6 @@ func (m *MongoRepository) GetActiveCalculatorElements() ([]*model.UiInputElement
 }
 
 func (m *MongoRepository) GetActiveElementsByCategory() ([]*model.UiInputCategoryDAO, error) {
-	//{
-	//	"$group": {
-	//	"_id": "$category",
-	//		"elements": {
-	//		"$push": {
-	//			"field": "$field",
-	//				"type": "$type",
-	//				"field_id": "$field_id",
-	//				"comment": "$comment",
-	//				"options": "$options",
-	//		}
-	//	}
-	//}
-	//
-	//},
-	//{
-	//	"$project": {
-	//	"elements": {"$slice": ["$elements", 50]}
-	//}
-	//},
-	//{ "$sort": { "count": -1 } },
 	groupPipeline := bson.D{{
 		"$group", bson.D{
 			{"_id", "$category"},
