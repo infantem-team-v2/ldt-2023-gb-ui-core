@@ -19,18 +19,26 @@ func BuildCalculatorUseCase(ctn di.Container) (interface{}, error) {
 }
 
 func (cus *CalculatorUseCase) GetActiveElements() (*model.GetActiveElementsResponse, error) {
-	elementsDAO, err := cus.UiMongoRepo.GetActiveCalculatorElements()
+	elementsDAO, err := cus.UiMongoRepo.GetActiveElementsByCategory()
 	if err != nil {
 		return nil, err
 	}
-	elementsDTO := make([]*model.UiElementLogic, 0, len(elementsDAO))
+	elementsDTO := make([]*model.UiCategoryLogic, 0, len(elementsDAO))
 
 	for _, e := range elementsDAO {
-		elementsDTO = append(elementsDTO, &model.UiElementLogic{
-			Field:   e.Field,
-			Type:    e.Type,
-			Comment: e.Comment,
-			Options: e.Options,
+		innerElements := make([]*model.UiElementLogic, 0, len(e.Elements))
+		for _, innerE := range e.Elements {
+			innerElements = append(innerElements, &model.UiElementLogic{
+				Field:   innerE.Field,
+				FieldId: innerE.FieldId,
+				Comment: innerE.Comment,
+				Type:    innerE.Type,
+				Options: innerE.Options,
+			})
+		}
+		elementsDTO = append(elementsDTO, &model.UiCategoryLogic{
+			Category: e.Category,
+			Elements: innerElements,
 		})
 	}
 	return &model.GetActiveElementsResponse{

@@ -109,7 +109,7 @@ const docTemplate = `{
                 "elements": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.UiElementLogic"
+                        "$ref": "#/definitions/model.UiCategoryLogic"
                     }
                 }
             }
@@ -121,6 +121,20 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/model.UiTypeLogic"
+                    }
+                }
+            }
+        },
+        "model.UiCategoryLogic": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "elements": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.UiElementLogic"
                     }
                 }
             }

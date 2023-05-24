@@ -10,7 +10,7 @@ definitions:
     properties:
       elements:
         items:
-          $ref: '#/definitions/model.UiElementLogic'
+          $ref: '#/definitions/model.UiCategoryLogic'
         type: array
     type: object
   model.GetTypesResponse:
@@ -18,6 +18,15 @@ definitions:
       elements:
         items:
           $ref: '#/definitions/model.UiTypeLogic'
+        type: array
+    type: object
+  model.UiCategoryLogic:
+    properties:
+      category:
+        type: string
+      elements:
+        items:
+          $ref: '#/definitions/model.UiElementLogic'
         type: array
     type: object
   model.UiElementLogic:

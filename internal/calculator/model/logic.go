@@ -13,3 +13,8 @@ type UiTypeLogic struct {
 	Comment         string `json:"hint"`
 	MultipleOptions bool   `json:"multiple_options"`
 }
+
+type UiCategoryLogic struct {
+	Category string            `json:"category"`
+	Elements []*UiElementLogic `json:"elements"`
+}

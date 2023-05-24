@@ -8,4 +8,5 @@ type RelationalRepository interface {
 
 type NonRelationalRepository interface {
 	GetActiveCalculatorElements() ([]*model.UiInputElementUnitDAO, error)
+	GetActiveElementsByCategory() ([]*model.UiInputCategoryDAO, error)
 }

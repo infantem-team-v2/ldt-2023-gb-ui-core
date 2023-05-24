@@ -1,7 +1,7 @@
 package model
 
 type GetActiveElementsResponse struct {
-	Elements []*UiElementLogic `json:"elements"`
+	Elements []*UiCategoryLogic `json:"elements"`
 }
 
 type GetTypesResponse struct {

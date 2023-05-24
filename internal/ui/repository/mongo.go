@@ -35,6 +35,7 @@ func (m *MongoRepository) GetActiveCalculatorElements() ([]*model.UiInputElement
 
 	for cursor.Next(context.Background()) {
 		var element model.UiInputElementUnitDAO
+
 		err = cursor.Decode(&element)
 		if err != nil {
 			return nil, terrors.Raise(err, 300009)
@@ -44,5 +45,73 @@ func (m *MongoRepository) GetActiveCalculatorElements() ([]*model.UiInputElement
 	if err := cursor.Close(context.Background()); err != nil {
 		return nil, terrors.Raise(err, 300010)
 	}
+	return data, nil
+}
+
+func (m *MongoRepository) GetActiveElementsByCategory() ([]*model.UiInputCategoryDAO, error) {
+	//{
+	//	"$group": {
+	//	"_id": "$category",
+	//		"elements": {
+	//		"$push": {
+	//			"field": "$field",
+	//				"type": "$type",
+	//				"field_id": "$field_id",
+	//				"comment": "$comment",
+	//				"options": "$options",
+	//		}
+	//	}
+	//}
+	//
+	//},
+	//{
+	//	"$project": {
+	//	"elements": {"$slice": ["$elements", 50]}
+	//}
+	//},
+	//{ "$sort": { "count": -1 } },
+	groupPipeline := bson.D{{
+		"$group", bson.D{
+			{"_id", "$category"},
+			{"elements", bson.D{{
+				"$push", bson.D{
+					{"field", "$field"},
+					{"type", "$type"},
+					{"field_id", "$field_id"},
+					{"comment", "$comment"},
+					{"options", "$options"},
+				},
+			},
+			}},
+		}}}
+	projectPipeline := bson.D{{
+		"$project", bson.D{{
+			"elements", bson.D{{
+				"$slice", bson.A{
+					"$elements", 50,
+				},
+			}},
+		}},
+	}}
+
+	cursor, err := m.db.
+		Database(model.UIMongoDB).
+		Collection(model.CalculatorCollection).
+		Aggregate(context.Background(), mongo.Pipeline{
+			groupPipeline, projectPipeline,
+		})
+
+	if err != nil {
+		return nil, terrors.Raise(err, 300008)
+	}
+
+	data := make([]*model.UiInputCategoryDAO, 0, 50)
+
+	err = cursor.All(context.Background(), &data)
+
+	if err != nil {
+		return nil, terrors.Raise(err, 300009)
+	}
+
 	return data, nil
 }
