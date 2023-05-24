@@ -106,7 +106,7 @@ const docTemplate = `{
         "model.GetActiveElementsResponse": {
             "type": "object",
             "properties": {
-                "elements": {
+                "categories": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/model.UiCategoryLogic"

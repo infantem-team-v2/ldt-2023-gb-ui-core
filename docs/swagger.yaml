@@ -8,7 +8,7 @@ definitions:
     type: object
   model.GetActiveElementsResponse:
     properties:
-      elements:
+      categories:
         items:
           $ref: '#/definitions/model.UiCategoryLogic'
         type: array
