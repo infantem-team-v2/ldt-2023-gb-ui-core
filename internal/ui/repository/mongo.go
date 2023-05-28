@@ -64,7 +64,10 @@ func (m *MongoRepository) UpdateActiveElements(params *calcModel.SetActiveForEle
 					}},
 				}},
 			)
-		return terrors.Raise(err, 300011)
+		if err != nil {
+			return terrors.Raise(err, 300011)
+		}
+
 	}
 
 	return nil
