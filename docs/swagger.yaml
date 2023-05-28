@@ -20,6 +20,13 @@ definitions:
           $ref: '#/definitions/model.UiTypeLogic'
         type: array
     type: object
+  model.SetActiveForElementRequest:
+    properties:
+      elements:
+        items:
+          $ref: '#/definitions/model.UiChangeElementLogic'
+        type: array
+    type: object
   model.UiCategoryLogic:
     properties:
       category:
@@ -31,8 +38,17 @@ definitions:
           $ref: '#/definitions/model.UiElementLogic'
         type: array
     type: object
+  model.UiChangeElementLogic:
+    properties:
+      active:
+        type: boolean
+      field_id:
+        type: string
+    type: object
   model.UiElementLogic:
     properties:
+      active:
+        type: boolean
       comment:
         type: string
       field:
@@ -87,6 +103,44 @@ paths:
       summary: Get active UI elements
       tags:
       - Calculator
+    patch:
+      description: Set state of activity for element
+      parameters:
+      - description: Fields and their states
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/model.SetActiveForElementRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/common.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/common.Response'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/common.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/common.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/common.Response'
+      summary: Set active/inactive state for element
+      tags:
+      - Calculator
+      - Admin
   /calc/types:
     get:
       description: Get possible UI elements for calculator

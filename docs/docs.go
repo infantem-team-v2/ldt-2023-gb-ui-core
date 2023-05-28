@@ -53,6 +53,63 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "patch": {
+                "description": "Set state of activity for element",
+                "tags": [
+                    "Calculator",
+                    "Admin"
+                ],
+                "summary": "Set active/inactive state for element",
+                "parameters": [
+                    {
+                        "description": "Fields and their states",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.SetActiveForElementRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/common.Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/common.Response"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/common.Response"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/common.Response"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/common.Response"
+                        }
+                    }
+                }
             }
         },
         "/calc/types": {
@@ -125,6 +182,17 @@ const docTemplate = `{
                 }
             }
         },
+        "model.SetActiveForElementRequest": {
+            "type": "object",
+            "properties": {
+                "elements": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.UiChangeElementLogic"
+                    }
+                }
+            }
+        },
         "model.UiCategoryLogic": {
             "type": "object",
             "properties": {
@@ -142,9 +210,23 @@ const docTemplate = `{
                 }
             }
         },
+        "model.UiChangeElementLogic": {
+            "type": "object",
+            "properties": {
+                "active": {
+                    "type": "boolean"
+                },
+                "field_id": {
+                    "type": "string"
+                }
+            }
+        },
         "model.UiElementLogic": {
             "type": "object",
             "properties": {
+                "active": {
+                    "type": "boolean"
+                },
                 "comment": {
                     "type": "string"
                 },
