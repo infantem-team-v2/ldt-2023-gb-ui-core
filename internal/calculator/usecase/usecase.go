@@ -3,6 +3,7 @@ package usecase
 import (
 	"gb-ui-core/internal/calculator/model"
 	uiInterface "gb-ui-core/internal/ui/interface"
+	"gb-ui-core/pkg/tutils/ptr"
 	"github.com/google/uuid"
 	"github.com/sarulabs/di"
 )
@@ -19,8 +20,8 @@ func BuildCalculatorUseCase(ctn di.Container) (interface{}, error) {
 	}, nil
 }
 
-func (cus *CalculatorUseCase) GetActiveElements() (*model.GetActiveElementsResponse, error) {
-	elementsDAO, err := cus.UiMongoRepo.GetActiveElementsByCategory()
+func (cus *CalculatorUseCase) GetActiveElements(doAdmin bool) (*model.GetActiveElementsResponse, error) {
+	elementsDAO, err := cus.UiMongoRepo.GetActiveElementsByCategory(doAdmin)
 	if err != nil {
 		return nil, err
 	}
@@ -29,13 +30,17 @@ func (cus *CalculatorUseCase) GetActiveElements() (*model.GetActiveElementsRespo
 	for _, e := range elementsDAO {
 		innerElements := make([]*model.UiElementLogic, 0, len(e.Elements))
 		for _, innerE := range e.Elements {
-			innerElements = append(innerElements, &model.UiElementLogic{
+			unit := &model.UiElementLogic{
 				Field:   innerE.Field,
 				FieldId: innerE.FieldId,
 				Comment: innerE.Comment,
 				Type:    innerE.Type,
 				Options: innerE.Options,
-			})
+			}
+			if doAdmin {
+				unit.Active = ptr.Bool(innerE.Active)
+			}
+			innerElements = append(innerElements, unit)
 		}
 		elementsDTO = append(elementsDTO, &model.UiCategoryLogic{
 			Category:   e.Category,
@@ -46,6 +51,10 @@ func (cus *CalculatorUseCase) GetActiveElements() (*model.GetActiveElementsRespo
 	return &model.GetActiveElementsResponse{
 		Elements: elementsDTO,
 	}, nil
+}
+
+func (cus *CalculatorUseCase) UpdateActiveElements(params *model.SetActiveForElementRequest) error {
+	return cus.UiMongoRepo.UpdateActiveElements(params)
 }
 
 func (cus *CalculatorUseCase) GetTypes() (*model.GetTypesResponse, error) {

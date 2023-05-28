@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	calcModel "gb-ui-core/internal/calculator/model"
 	"gb-ui-core/internal/ui/model"
 	"gb-ui-core/pkg/terrors"
 	"github.com/sarulabs/di"
@@ -48,7 +49,26 @@ func (m *MongoRepository) GetActiveCalculatorElements() ([]*model.UiInputElement
 	return data, nil
 }
 
-func (m *MongoRepository) GetActiveElementsByCategory() ([]*model.UiInputCategoryDAO, error) {
+func (m *MongoRepository) UpdateActiveElements(params *calcModel.SetActiveForElementRequest) error {
+	for _, unit := range params.Elements {
+		_, err := m.db.
+			Database(model.UIMongoDB).
+			Collection(model.CalculatorCollection).
+			UpdateOne(context.Background(),
+				bson.D{{
+					"field_id", unit.FieldId,
+				}},
+				bson.D{{
+					"active", unit.Active,
+				}},
+			)
+		return terrors.Raise(err, 300011)
+	}
+
+	return nil
+}
+
+func (m *MongoRepository) GetActiveElementsByCategory(doAdmin bool) ([]*model.UiInputCategoryDAO, error) {
 	groupPipeline := bson.D{{
 		"$group", bson.D{
 			{"_id", "$category"},
@@ -56,6 +76,7 @@ func (m *MongoRepository) GetActiveElementsByCategory() ([]*model.UiInputCategor
 				"$push", bson.D{
 					{"field", "$field"},
 					{"type", "$type"},
+					{"active", "$active"},
 					{"field_id", "$field_id"},
 					{"comment", "$comment"},
 					{"options", "$options"},
@@ -72,13 +93,26 @@ func (m *MongoRepository) GetActiveElementsByCategory() ([]*model.UiInputCategor
 			}},
 		}},
 	}}
+	matchPipeline := bson.D{{
+		"$match", bson.D{{
+			"active", true,
+		}},
+	}}
+	var pipeline mongo.Pipeline
+	if doAdmin {
+		pipeline = mongo.Pipeline{
+			groupPipeline, projectPipeline,
+		}
+	} else {
+		pipeline = mongo.Pipeline{
+			matchPipeline, groupPipeline, projectPipeline,
+		}
+	}
 
 	cursor, err := m.db.
 		Database(model.UIMongoDB).
 		Collection(model.CalculatorCollection).
-		Aggregate(context.Background(), mongo.Pipeline{
-			groupPipeline, projectPipeline,
-		})
+		Aggregate(context.Background(), pipeline)
 
 	if err != nil {
 		return nil, terrors.Raise(err, 300008)

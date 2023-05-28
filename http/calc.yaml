@@ -2,6 +2,10 @@ GetActiveElements:
   httpMethod: GET
   route: /element/active
 
+UpdateActiveElements:
+  httpMethod: PATCH
+  route: /element/active
+
 GetTypes:
   httpMethod: GET
   route: /types

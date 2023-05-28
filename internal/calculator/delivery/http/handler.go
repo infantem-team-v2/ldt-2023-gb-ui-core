@@ -2,6 +2,9 @@ package http
 
 import (
 	calculatorInterface "gb-ui-core/internal/calculator/interface"
+	"gb-ui-core/internal/calculator/model"
+	"gb-ui-core/internal/pkg/common"
+	"gb-ui-core/pkg/terrors"
 	"gb-ui-core/pkg/thttp/server"
 	"github.com/gofiber/fiber/v2"
 )
@@ -38,12 +41,47 @@ func (ch *CalculatorHandler) GetPrefix() string {
 // @Router /calc/element/active [get]
 func (ch *CalculatorHandler) GetActiveElements() fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
-		response, err := ch.CalculatorUC.GetActiveElements()
+		source := ctx.Query("source", "")
+		doAdmin := false
+		if source == "admin" {
+			doAdmin = true
+		}
+		response, err := ch.CalculatorUC.GetActiveElements(doAdmin)
 		if err != nil {
 			return err
 		}
 
 		return ctx.JSON(response)
+	}
+}
+
+// UpdateActiveElements godoc
+// @Summary Set active/inactive state for element
+// @Description Set state of activity for element
+// @Tags Calculator, Admin
+// @Param data body model.SetActiveForElementRequest true "Fields and their states"
+// @Success 200 {object} common.Response
+// @Failure 400 {object} common.Response
+// @Failure 401 {object} common.Response
+// @Failure 403 {object} common.Response
+// @Failure 422 {object} common.Response
+// @Failure 409 {object} common.Response
+// @Router /calc/element/active [patch]
+func (ch *CalculatorHandler) UpdateActiveElements() fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		var params model.SetActiveForElementRequest
+		if err := server.ReadRequest(ctx, &params); err != nil {
+			return terrors.Raise(err, 100001)
+		}
+
+		err := ch.CalculatorUC.UpdateActiveElements(&params)
+		if err != nil {
+			return err
+		}
+		return ctx.JSON(common.Response{
+			InternalCode: 200,
+			Message:      "Successfully updated elements",
+		})
 	}
 }
 

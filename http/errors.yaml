@@ -99,3 +99,6 @@
 300010:
   message: can't close connection to document storage
   statusCode: 409
+300011:
+  message: can't update element now
+  statusCode: 409

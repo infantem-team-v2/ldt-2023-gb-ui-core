@@ -1,6 +1,9 @@
 package uiInterface
 
-import "gb-ui-core/internal/ui/model"
+import (
+	calcModel "gb-ui-core/internal/calculator/model"
+	"gb-ui-core/internal/ui/model"
+)
 
 type RelationalRepository interface {
 	GetUiTypes() ([]*model.UiTypeDAO, error)
@@ -8,5 +11,6 @@ type RelationalRepository interface {
 
 type NonRelationalRepository interface {
 	GetActiveCalculatorElements() ([]*model.UiInputElementUnitDAO, error)
-	GetActiveElementsByCategory() ([]*model.UiInputCategoryDAO, error)
+	GetActiveElementsByCategory(doAdmin bool) ([]*model.UiInputCategoryDAO, error)
+	UpdateActiveElements(params *calcModel.SetActiveForElementRequest) error
 }

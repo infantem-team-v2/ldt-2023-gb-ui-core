@@ -17,5 +17,6 @@ type UiInputElementUnitDAO struct {
 	FieldId string        `json:"field_id" bson:"field_id"`
 	Comment string        `json:"comment" bson:"comment"`
 	Type    string        `json:"type" bson:"type"`
+	Active  bool          `json:"active" bson:"active"`
 	Options []interface{} `json:"options" bson:"options"`
 }

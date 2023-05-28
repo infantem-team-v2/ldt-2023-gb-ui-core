@@ -7,3 +7,7 @@ type GetActiveElementsResponse struct {
 type GetTypesResponse struct {
 	Elements []*UiTypeLogic `json:"elements"`
 }
+
+type SetActiveForElementRequest struct {
+	Elements []*UiChangeElementLogic `json:"elements"`
+}

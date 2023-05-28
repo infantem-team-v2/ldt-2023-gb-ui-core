@@ -5,6 +5,7 @@ type UiElementLogic struct {
 	FieldId string        `json:"field_id"`
 	Comment string        `json:"comment"`
 	Type    string        `json:"type"`
+	Active  *bool         `json:"active,omitempty"`
 	Options []interface{} `json:"options"`
 }
 
@@ -18,4 +19,9 @@ type UiCategoryLogic struct {
 	Category   string            `json:"category"`
 	CategoryId string            `json:"category_id"`
 	Elements   []*UiElementLogic `json:"elements"`
+}
+
+type UiChangeElementLogic struct {
+	FieldId string `json:"field_id"`
+	Active  bool   `json:"active"`
 }
