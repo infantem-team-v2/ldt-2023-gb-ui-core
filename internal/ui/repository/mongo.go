@@ -59,7 +59,9 @@ func (m *MongoRepository) UpdateActiveElements(params *calcModel.SetActiveForEle
 					"field_id", unit.FieldId,
 				}},
 				bson.D{{
-					"active", unit.Active,
+					"$set", bson.D{{
+						"active", unit.Active,
+					}},
 				}},
 			)
 		return terrors.Raise(err, 300011)
